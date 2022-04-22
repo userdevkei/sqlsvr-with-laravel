@@ -9,7 +9,9 @@ class StudentUpdate extends Model
 {
     use HasFactory;
 
-//    protected $connections = 'mysql';
+    protected $connections = 'sqlsrv';
+
+    protected $table = 'tblSTUDENTS';
 
 //    protected $table = 'users';
 

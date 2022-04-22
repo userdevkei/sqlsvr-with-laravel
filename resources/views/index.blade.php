@@ -1,22 +1,4 @@
-<html>
-    <head>
-        <title> Welcome | {{ env('APP_NAME') }}</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-{{--        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>--}}
-{{--        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>--}}
-{{--        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>--}}
-
-
-{{--        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />--}}
-{{--        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-        <style>
+    <style>
             body{
                 margin: 0 auto;
                 padding: 7px;
@@ -35,9 +17,8 @@
                 text-align:  !important;
             }
         </style>
-    </head>
-    <body>
-    @include('notify.messages')
+    @extends('layouts.app')
+    @section('content')
         <div class="form-container">
             {!! Form::open(['action' => 'App\Http\Controllers\StudentController@storeDetails', 'method' => 'POST']) !!}
 
@@ -104,6 +85,7 @@
                 <th colspan="1">Student Email</th>
                 <th colspan="1">Phone Number</th>
                 <th colspan="1">National ID</th>
+                <th colspan="1">Status</th>
                 <th colspan="2">Action</th>
             </tr>
             </thead>
@@ -116,6 +98,13 @@
                         <td colspan="">{{ $regstudent->regStudentEmail }}</td>
                         <td colspan="">{{ $regstudent->regStudentPhone }}</td>
                         <td colspan="">{{ $regstudent->regStudentIDNO }}</td>
+                        <td colspan="">
+                            @if($regstudent->isVerified === 1)
+                                <span class="badge badge-success">verified</span>
+                            @else
+                                <a class="btn btn-sm btn-info" href="{{ route('requestOTP', $regstudent->id) }}">verify</a>
+                            @endif
+                        </td>
                         <td><a class="btn btn-sm btn-info" href="#"> edit </a> </td>
                         <td><a class="btn btn-sm btn-danger" href="#"> delete </a> </td>
                     </tr>
@@ -127,12 +116,4 @@
             {{ $regstudents->links() }}
         </div>
     </div>
-    </body>
-    <script>
-        $(document).ready(function() {
-            $('#reg_number').select2({
-                minimumInputLength: 3,
-        });
-        })
-    </script>
-</html>
+    @endsection

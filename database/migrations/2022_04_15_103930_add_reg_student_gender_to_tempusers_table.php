@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRegStudentGenderToUsers extends Migration
+class AddRegStudentGenderToTempusersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddRegStudentGenderToUsers extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->table('users', function (Blueprint $table) {
+        Schema::table('tempusers', function (Blueprint $table) {
             $table->string('regStudentGender');
         });
     }
@@ -25,7 +25,7 @@ class AddRegStudentGenderToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('tempusers', function (Blueprint $table) {
             //
         });
     }
